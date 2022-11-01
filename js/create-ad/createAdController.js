@@ -1,4 +1,5 @@
 import { createApiAd } from "./createAdProvider.js"
+import { pubSub } from "../pub-sub/pubSub.js";
 
 export class CreateAdController {
   constructor(nodeElement) {
@@ -78,7 +79,7 @@ export class CreateAdController {
     }
   }
 
-  createAd() {
+  async createAd() {
     const formData = new FormData(this.createAdElement);
     // const ad = formData.get({});
     let adString = '{';
@@ -98,7 +99,18 @@ export class CreateAdController {
     ad += '}';
     console.log(ad);
     ad = JSON.parse(ad);
-    console.log(typeof ad);
-    createApiAd(ad);
+    // console.log(typeof ad);
+    try {
+      await createApiAd(ad);
+      // alert('Anuncio creado con éxito');
+      pubSub.publish(pubSub.TOPICS.NOTIFICATION_ERROR, `El anuncio se ha creado correctamente.`);
+      setTimeout(()=>{
+        window.location.href = "./";
+      },1500);
+      
+    } catch (error) {
+      // alert(`Hubo un error durante la creación del anuncio.`)
+      pubSub.publish(pubSub.TOPICS.NOTIFICATION_ERROR, `Hubo un error durante la creación del anuncio.`);
+    }
   }
 }

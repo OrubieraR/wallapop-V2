@@ -34,7 +34,7 @@ export class AdDetailController {
         if (token) {
           // el usuario logado es el creador del anuncio q estamos viendo
           const tokenData = decodeToken(token);
-          // TODO: Ver cómo generar un id de usuario para cada anuncio. O ver de donde se coge.
+          
           if (tokenData.userId === this.ad.userId) {
             const removeButton = this.adDetailElement.querySelector('button');
             removeButton.style.display = 'block';
