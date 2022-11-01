@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear anuncio</title>
+</head>
+<body>
+  <h2>Creación de un anuncio</h2>
+  <section class="notification-container"></section>
+  <form id="create-ad-form">
+    <label for="ad-creation">¿Qué anuncio quieres publicar?</label>
+    <br><br>
+    
+    <label for="name">Nombre *</label>
+    <br>
+    <input class="required" type="text" name="name" required>
+    <br><br>
+
+    <label for="price">Precio *</label>
+    <br>
+    <input class="required" type="text" name="price" required>
+    <br><br>
+
+    <label for="description">Descripcion *</label>
+    <br>
+    <textarea class="required" name="description" id="ad-creation" cols="30" rows="10" required></textarea>
+    <br><br>
+
+    <label for="sale">Quiero comprarlo *</label>
+    <input class="radio" type="radio" id="compra" value="compra" name="compvent" required>
+
+    <label for="sale" required="required">Quiero venderlo *</label>
+    <input class="radio" type="radio" id="venta" value="venta" name="compvent" required>
+    
+    
+    <br><br>
+    <label for="photo">Pega la URL de tu foto:</label>
+    <input type="url" name="photo">
+
+    <br><br>
+    <button type="submit" class="create-ad-button" disabled>Crear anuncio</button>
+  </form>
+
+  <script type="module" src="./js/create-ad/index.js"></script>
+</body>
+</html>
