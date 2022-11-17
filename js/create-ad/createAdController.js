@@ -1,4 +1,4 @@
-import { createApiAd } from "./createAdProvider.js"
+import { createApiAd } from "./createAdProvider.js";
 import { pubSub } from "../pub-sub/pubSub.js";
 
 export class CreateAdController {
@@ -11,39 +11,43 @@ export class CreateAdController {
   }
 
   subscribeToEvents() {
-    const createAdButton = this.createAdElement.querySelector('.create-ad-button');
-    
-    this.createAdElement.addEventListener('submit', (event) => {
+    const createAdButton =
+      this.createAdElement.querySelector(".create-ad-button");
+
+    this.createAdElement.addEventListener("submit", (event) => {
       event.preventDefault();
     });
 
-    this.createAdElement.addEventListener('keyup',()=>{
+    this.createAdElement.addEventListener("keyup", () => {
       this.validateForm(createAdButton);
     });
-    this.createAdElement.addEventListener('click',()=>{
+    this.createAdElement.addEventListener("click", () => {
       this.validateForm(createAdButton);
     });
-    createAdButton.addEventListener('click', () => {
+    createAdButton.addEventListener("click", () => {
       this.createAd();
-    })
+    });
   }
-  
-  
-  
-  validateForm(createAdButton){
-      const createAdsInputElements = Array.from(this.createAdElement.querySelectorAll('.required'));
 
-      const createAdsCheckElements = Array.from(this.createAdElement.querySelectorAll('.radio'));
-      
-      createAdsInputElements.forEach(createAdsInputElement => {
-        createAdsInputElement.addEventListener('input',() =>{
-        const areInputsFilled = createAdsInputElements.every(inputElement => inputElement.value);
-        
-        if(areInputsFilled){
+  validateForm(createAdButton) {
+    const createAdsInputElements = Array.from(
+      this.createAdElement.querySelectorAll(".required")
+    );
+
+    const createAdsCheckElements = Array.from(
+      this.createAdElement.querySelectorAll(".radio")
+    );
+
+    createAdsInputElements.forEach((createAdsInputElement) => {
+      createAdsInputElement.addEventListener("input", () => {
+        const areInputsFilled = createAdsInputElements.every(
+          (inputElement) => inputElement.value
+        );
+
+        if (areInputsFilled) {
           this.textF = true;
-        }
-        else{
-          this.textF=false;
+        } else {
+          this.textF = false;
         }
         // if (areInputsFilled){
         //   createAdButton.removeAttribute('disabled');
@@ -52,65 +56,64 @@ export class CreateAdController {
         //   createAdButton.setAttribute('disabled','');
         // }
       });
-    }
-    );
+    });
 
-    createAdsCheckElements.forEach(createAdsCheckElement => {
-        createAdsCheckElement.addEventListener('click',() =>{
-        const areInputsChecked = createAdsCheckElements.some(inputElement => inputElement.checked);
-        
-        if(areInputsChecked){
+    createAdsCheckElements.forEach((createAdsCheckElement) => {
+      createAdsCheckElement.addEventListener("click", () => {
+        const areInputsChecked = createAdsCheckElements.some(
+          (inputElement) => inputElement.checked
+        );
+
+        if (areInputsChecked) {
           this.inptF = true;
-        }
-        else{
-          this.inptF=false;
+        } else {
+          this.inptF = false;
         }
       });
-      }
-    );
+    });
 
     // Final validation
-    if (this.textF && this.inptF){
-      createAdButton.removeAttribute('disabled');
-      }
-      else{
-      createAdButton.setAttribute('disabled','');
-      
+    if (this.textF && this.inptF) {
+      createAdButton.removeAttribute("disabled");
+    } else {
+      createAdButton.setAttribute("disabled", "");
     }
   }
 
   async createAd() {
     const formData = new FormData(this.createAdElement);
     // const ad = formData.get({});
-    let adString = '{';
+    let adString = "{";
     let contador;
-    
+
     for (const pair of formData.entries()) {
       contador++;
-      
+
       console.log(`${pair[0]}, ${pair[1]},`);
       // ad.pair[0] = pair[1];
       adString += `"${pair[0]}": "${pair[1]}",`;
     }
 
-    let lastIndex = adString.lastIndexOf(',');
+    let lastIndex = adString.lastIndexOf(",");
     console.log(lastIndex);
-    let ad = adString.slice(0,lastIndex);
-    ad += '}';
+    let ad = adString.slice(0, lastIndex);
+    ad += "}";
     console.log(ad);
     ad = JSON.parse(ad);
     // console.log(typeof ad);
     try {
       await createApiAd(ad);
-      // alert('Anuncio creado con éxito');
-      pubSub.publish(pubSub.TOPICS.NOTIFICATION_ERROR, `El anuncio se ha creado correctamente.`);
-      setTimeout(()=>{
+      alert("Anuncio creado con éxito");
+      // pubSub.publish(pubSub.TOPICS.NOTIFICATION_ERROR, `El anuncio se ha creado correctamente.`);
+      setTimeout(() => {
         window.location.href = "./";
-      },1500);
-      
+      }, 1500);
     } catch (error) {
       // alert(`Hubo un error durante la creación del anuncio.`)
-      pubSub.publish(pubSub.TOPICS.NOTIFICATION_ERROR, `Hubo un error durante la creación del anuncio.`);
+      pubSub.publish(
+        pubSub.TOPICS.NOTIFICATION_ERROR,
+        `Hubo un error durante la creación del anuncio.`
+      );
     }
   }
 }

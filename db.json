@@ -1,0 +1,68 @@
+{
+  "users": [
+    {
+      "username": "octavio",
+      "password": "$2b$10$cfkP1Zm1lIvkuG72L5iL7ewftlCuKQvouWsPFJpfpQJgAwEH/PW82",
+      "id": 1
+    },
+    {
+      "username": "prueba1",
+      "password": "$2b$10$vBpLWepj7/2omWA/2.U9xu3072KPHiflG6te.Ot/qhMjtImXguiv6",
+      "id": 2
+    }
+  ],
+  "ads": [
+    {
+      "id": 1,
+      "name": "Bicicleta",
+      "description": "Una bicicleta muy buena.",
+      "sale": true,
+      "price": 250,
+      "photo": "https://static.vecteezy.com/system/resources/previews/007/634/524/original/camera-logo-icon-design-template-free-vector.jpg",
+      "userId": 1,
+      "tags": [
+        "lifestyle",
+        "motor"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Iphone 12",
+      "description": "Un Iphone nuevo.",
+      "sale": false,
+      "price": 50,
+      "photo": "https://static.vecteezy.com/system/resources/previews/007/634/524/original/camera-logo-icon-design-template-free-vector.jpg",
+      "userId": 1,
+      "tags": [
+        "lifestyle",
+        "mobile"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Portatil 15 pulgadas",
+      "description": "Un portatil para gamers.",
+      "sale": true,
+      "price": 530,
+      "photo": "https://static.vecteezy.com/system/resources/previews/007/634/524/original/camera-logo-icon-design-template-free-vector.jpg",
+      "userId": 2,
+      "tags": [
+        "lifestyle",
+        "work"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Coche de segunda mano",
+      "description": "Un coche de segunda mano.",
+      "sale": false,
+      "price": 5300,
+      "photo": "https://static.vecteezy.com/system/resources/previews/007/634/524/original/camera-logo-icon-design-template-free-vector.jpg",
+      "userId": 2,
+      "tags": [
+        "lifestyle",
+        "motor"
+      ]
+    }
+  ]
+}
